@@ -6,7 +6,7 @@ name: 'hooks action'
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '10 * * * *'
+    - cron:  '5 * * * *'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,12 +25,12 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Update source code
-        run: echo "GitHub action run $GITHUB_RUN_NUMBER"> hook.js
+        run: echo "GitHub action run $GITHUB_RUN_NUMBER by $GITHUB_ACTOR"> hook.js
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v7
         with:
-          message: 'Commit $GITHUB_RUN_NUMBER'
+          message: "Commit $GITHUB_RUN_NUMBER for $GITHUB_ACTOR"
           barnch: 'hook'
           add: '*.js'
           push: true
